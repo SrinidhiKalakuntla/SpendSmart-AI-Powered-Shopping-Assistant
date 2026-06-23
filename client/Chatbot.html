@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Shopping Helper</title>
+</head>
+<body>
+
+<h2>🤖 Smart Shopping Helper</h2>
+
+<input id="msg" placeholder="Type your question here..." />
+<button onclick="sendMessage()">Send</button>
+
+<p id="reply"></p>
+
+<script>
+function sendMessage() {
+    let userText = document.getElementById("msg").value;
+
+    fetch("http://127.0.0.1:8000/chat", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({message: userText})
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("reply").innerText = data.response;
+    });
+}
+</script>
+
+</body>
+</html>
